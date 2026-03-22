@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>إنشاء وثيقة — وثيقتي</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--g:#C9A84C;--g2:#E8C97A;--bg:#04080F;--bg2:#080E1A;--card:#0A1628;--txt:#E8E4D8;--txt2:#8A9AB8;--txt3:#3A4A60}
+[data-theme=light]{--bg:#F0EDE6;--bg2:#E8E4DC;--card:#FFFFFF;--txt:#12100A;--txt2:#40382C;--txt3:#80786C}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--txt);height:100vh;display:flex;flex-direction:column;overflow:hidden}
+
+/* TOPBAR */
+.topbar{background:var(--bg2);border-bottom:1px solid rgba(201,168,76,0.1);padding:12px 22px;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.back-btn{padding:8px 16px;background:transparent;border:1px solid rgba(201,168,76,0.2);border-radius:8px;color:var(--txt2);font-family:'Cairo',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;flex-shrink:0}
+.back-btn:hover{border-color:var(--g);color:var(--g)}
+.doc-title{font-size:15px;font-weight:700;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-actions{display:flex;gap:9px;flex-shrink:0}
+.tb-btn{padding:9px 18px;border-radius:8px;font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:flex;align-items:center;gap:7px}
+.tb-btn-gen{background:linear-gradient(135deg,var(--g),var(--g2));color:#000}
+.tb-btn-gen:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(201,168,76,0.35)}
+.tb-btn-gen:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.tb-btn-print{background:rgba(52,152,219,0.12);color:#5DADE2;border:1px solid rgba(52,152,219,0.25)}
+.tb-btn-print:hover{background:rgba(52,152,219,0.2)}
+.tb-btn-save{background:rgba(46,204,113,0.1);color:#2ECC71;border:1px solid rgba(46,204,113,0.2)}
+.icon-btn{width:34px;height:34px;border-radius:8px;background:transparent;border:1px solid rgba(201,168,76,0.15);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--txt);transition:all 0.2s}
+.icon-btn:hover{border-color:var(--g)}
+
+/* MAIN */
+.main{display:flex;flex:1;overflow:hidden}
+.form-panel{width:380px;flex-shrink:0;background:var(--bg2);border-left:1px solid rgba(201,168,76,0.08);display:flex;flex-direction:column;overflow:hidden}
+.form-scroll{flex:1;overflow-y:auto;padding:20px}
+.preview-panel{flex:1;background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
+.preview-wrap{flex:1;overflow:hidden;position:relative}
+.preview-iframe{width:100%;height:100%;border:none;background:#fff}
+.preview-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--txt3);gap:14px}
+.preview-empty-ico{font-size:52px}
+.preview-empty-txt{font-size:15px;font-weight:600}
+.preview-empty-sub{font-size:13px;text-align:center;max-width:280px;line-height:1.7}
+
+/* FORM */
+.form-header{padding:18px 20px;border-bottom:1px solid rgba(201,168,76,0.08);font-size:13px;font-weight:700;color:var(--g2);display:flex;align-items:center;gap:8px}
+.fgrp{margin-bottom:14px}
+.flbl{display:block;font-size:12px;font-weight:700;color:var(--txt2);margin-bottom:5px}
+.req{color:var(--g);font-size:11px;margin-right:3px}
+.finp,.fsel,.farea{width:100%;background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.07);border-radius:9px;padding:9px 12px;color:var(--txt);font-family:'Cairo',sans-serif;font-size:12.5px;outline:none;transition:border-color 0.2s;-webkit-appearance:none}
+.finp:focus,.fsel:focus,.farea:focus{border-color:var(--g);background:rgba(201,168,76,0.02)}
+.farea{resize:vertical;min-height:80px;line-height:1.7}
+[data-theme=light] .finp,[data-theme=light] .fsel,[data-theme=light] .farea{background:rgba(0,0,0,0.04);border-color:rgba(0,0,0,0.12);color:var(--txt)}
+.submit-row{padding:16px 20px;border-top:1px solid rgba(201,168,76,0.08);flex-shrink:0}
+.btn-gen-full{width:100%;padding:12px;background:linear-gradient(135deg,var(--g),var(--g2));color:#000;border:none;border-radius:10px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s}
+.btn-gen-full:hover{transform:translateY(-1px);box-shadow:0 10px 26px rgba(201,168,76,0.35)}
+.btn-gen-full:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.alert{padding:10px 14px;border-radius:8px;font-size:12.5px;margin-bottom:12px;display:none}
+.alert.on{display:block}
+.alert-ok{background:rgba(46,204,113,0.1);border:1px solid rgba(46,204,113,0.3);color:#2ECC71}
+.alert-err{background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);color:#E74C3C}
+
+/* PRINT STYLES */
+@media print{.topbar,.form-panel{display:none!important}.preview-panel{width:100vw!important}.preview-iframe{height:100vh!important}}
+@media(max-width:820px){.form-panel{width:100%;height:50vh;border-left:none;border-top:1px solid rgba(201,168,76,0.1)}.main{flex-direction:column-reverse}}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.2);border-radius:2px}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <button class="back-btn" onclick="window.location.href='/dashboard'">← رجوع</button>
+  <div class="doc-title" id="docTitle">جاري التحميل...</div>
+  <div class="tb-actions">
+    <button class="icon-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+    <button class="tb-btn tb-btn-print" id="printBtn" onclick="doPrint()" style="display:none">🖨️ طباعة</button>
+    <button class="tb-btn tb-btn-save" id="saveBtn" onclick="doSave()" style="display:none">💾 حفظ</button>
+    <button class="tb-btn tb-btn-gen" id="genBtn" onclick="doGenerate()" disabled>⚡ توليد</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- FORM -->
+  <div class="form-panel">
+    <div class="form-header">✍️ <span id="formTitle">بيانات الوثيقة</span></div>
+    <div class="form-scroll">
+      <div class="alert" id="formAlert"></div>
+      <div id="formFields">
+        <div style="text-align:center;padding:30px;color:var(--txt3)">جاري تحميل النموذج...</div>
+      </div>
+    </div>
+    <div class="submit-row">
+      <button class="btn-gen-full" id="genBtn2" onclick="doGenerate()" disabled>⚡ توليد الوثيقة</button>
+    </div>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview-panel">
+    <div class="preview-wrap" id="previewWrap">
+      <div class="preview-empty" id="previewEmpty">
+        <div class="preview-empty-ico">📄</div>
+        <div class="preview-empty-txt">المعاينة ستظهر هنا</div>
+        <div class="preview-empty-sub">أدخل البيانات في النموذج ثم اضغط "توليد الوثيقة"</div>
+      </div>
+      <iframe id="previewFrame" class="preview-iframe" style="display:none"></iframe>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let theme=localStorage.getItem('wq_theme')||'dark';
+applyTheme();
+function applyTheme(){document.body.setAttribute('data-theme',theme==='light'?'light':'');document.getElementById('themeBtn').textContent=theme==='dark'?'🌙':'☀️'}
+function toggleTheme(){theme=theme==='dark'?'light':'dark';applyTheme();localStorage.setItem('wq_theme',theme)}
+
+const docType=window.location.pathname.split('/doc/')[1];
+let currentHTML='';
+let tplData=null;
+
+async function init(){
+  const me=await fetch('/api/auth/me').then(r=>r.json());
+  if(!me.loggedIn){window.location.href='/';return}
+  if(me.expired){alert('انتهى اشتراكك. جاري توجيهك...');window.location.href='/dashboard';return}
+
+  const r=await fetch('/api/docs/tpl/'+docType).then(x=>x.json());
+  if(!r.success){document.getElementById('formFields').innerHTML='<div style="color:#E74C3C;text-align:center;padding:20px">خطأ: الوثيقة غير موجودة</div>';return}
+  tplData=r.template;
+  document.getElementById('docTitle').textContent=tplData.title||docType;
+  document.getElementById('formTitle').textContent=tplData.title||docType;
+  buildForm(tplData.fields||[]);
+  document.getElementById('genBtn').disabled=false;
+  document.getElementById('genBtn2').disabled=false;
+}
+
+function buildForm(fields){
+  const wrap=document.getElementById('formFields');wrap.innerHTML='';
+  (fields||[]).forEach(f=>{
+    const g=document.createElement('div');g.className='fgrp';
+    const lbl=document.createElement('label');lbl.className='flbl';
+    lbl.innerHTML=f.l+(f.r?'<span class="req">*</span>':'');
+    g.appendChild(lbl);
+    let el;
+    if(f.t==='sel'){
+      el=document.createElement('select');el.className='fsel';
+      el.innerHTML='<option value="">— اختر —</option>'+(f.opts||[]).map(o=>`<option>${o}</option>`).join('');
+    } else if(f.t==='area'){
+      el=document.createElement('textarea');el.className='farea';
+      el.placeholder=(f.pl||f.l);el.rows=3;
+    } else {
+      el=document.createElement('input');el.className='finp';
+      el.type=f.t==='number'?'number':f.t==='date'?'date':'text';
+      el.placeholder=(f.pl||f.l);
+    }
+    el.id='f_'+f.n;el.name=f.n;
+    if(f.t==='date'&&!f.noDefault)el.value=new Date().toISOString().split('T')[0];
+    g.appendChild(el);wrap.appendChild(g);
+  });
+}
+
+function getFormData(){
+  const d={};
+  (tplData.fields||[]).forEach(f=>{
+    const el=document.getElementById('f_'+f.n);
+    if(el)d[f.n]=el.value;
+  });
+  return d;
+}
+
+function validate(){
+  const missing=[];
+  (tplData.fields||[]).filter(f=>f.r).forEach(f=>{
+    const el=document.getElementById('f_'+f.n);
+    if(el&&!el.value.trim())missing.push(f.l);
+  });
+  return missing;
+}
+
+async function doGenerate(){
+  const missing=validate();
+  if(missing.length){
+    showAlert('formAlert','err','الحقول المطلوبة: '+missing.slice(0,3).join(', ')+(missing.length>3?' وغيرها':''));
+    return;
+  }
+  const btn=document.getElementById('genBtn');const btn2=document.getElementById('genBtn2');
+  btn.disabled=true;btn.textContent='⏳ جاري التوليد...';
+  btn2.disabled=true;btn2.textContent='⏳ جاري التوليد...';
+  try{
+    const r=await fetch('/api/docs/gen/'+docType,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(getFormData())}).then(x=>x.json());
+    if(r.success){
+      currentHTML=r.html;
+      const frame=document.getElementById('previewFrame');
+      document.getElementById('previewEmpty').style.display='none';
+      frame.style.display='block';
+      frame.srcdoc=r.html;
+      document.getElementById('printBtn').style.display='flex';
+      document.getElementById('saveBtn').style.display='flex';
+      showAlert('formAlert','ok','✅ تم توليد الوثيقة!');
+    } else showAlert('formAlert','err',r.message||'خطأ في التوليد');
+  }catch(e){showAlert('formAlert','err','خطأ في الاتصال')}
+  btn.disabled=false;btn.textContent='⚡ توليد';
+  btn2.disabled=false;btn2.textContent='⚡ توليد الوثيقة';
+}
+
+function doPrint(){
+  const frame=document.getElementById('previewFrame');
+  if(!frame.contentWindow)return;
+  frame.contentWindow.print();
+}
+
+async function doSave(){
+  const r=await fetch('/api/docs/gen/'+docType,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(getFormData())}).then(x=>x.json());
+  if(r.success)showAlert('formAlert','ok','💾 تم الحفظ في وثائقي');
+  else showAlert('formAlert','err','خطأ في الحفظ');
+}
+
+function showAlert(id,type,msg){
+  const el=document.getElementById(id);el.className='alert on alert-'+(type==='ok'?'ok':'err');el.textContent=msg;
+  setTimeout(()=>el.classList.remove('on'),5000);
+}
+
+init();
+</script>
+</body>
+</html>

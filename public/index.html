@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>وثيقتي — منصة الوثائق الرسمية الجزائرية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --g:#C9A84C;--g2:#E8C97A;--g3:#FFF0C0;
+  --bg:#04080F;--bg2:#080E1A;--bg3:#0D1525;
+  --card:#0A1628;--card2:#0F1E35;
+  --txt:#E8E4D8;--txt2:#8A9AB8;--txt3:#3A4A60;
+  --red:#E74C3C;--green:#2ECC71;
+}
+[data-theme=light]{
+  --bg:#F0EDE6;--bg2:#E8E4DC;--bg3:#E0DBD0;
+  --card:#FFFFFF;--card2:#F5F0E8;
+  --txt:#12100A;--txt2:#40382C;--txt3:#80786C;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+
+/* ─── NAVBAR ─── */
+nav{position:fixed;top:0;width:100%;z-index:999;padding:12px 36px;display:flex;justify-content:space-between;align-items:center;background:rgba(4,8,15,0.92);backdrop-filter:blur(24px);border-bottom:1px solid rgba(201,168,76,0.12);transition:all 0.3s}
+[data-theme=light] nav{background:rgba(240,237,230,0.95)}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer}
+.logo-box{width:38px;height:38px;background:linear-gradient(135deg,var(--g),var(--g2));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:0 4px 15px rgba(201,168,76,0.35)}
+.logo-txt{font-size:21px;font-weight:900;color:var(--g2)}
+.nav-actions{display:flex;gap:10px;align-items:center}
+.btn-sm{padding:8px 20px;border-radius:8px;font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;border:none}
+.btn-ghost{background:transparent;color:var(--txt);border:1.5px solid rgba(201,168,76,0.35)}
+.btn-ghost:hover{border-color:var(--g);color:var(--g)}
+.btn-gold{background:linear-gradient(135deg,var(--g),var(--g2));color:#000}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(201,168,76,0.4)}
+.icon-btn{width:36px;height:36px;border-radius:50%;background:transparent;border:1.5px solid rgba(201,168,76,0.25);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--txt);transition:all 0.2s}
+.icon-btn:hover{border-color:var(--g)}
+
+/* ─── HERO ─── */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:100px 24px 60px;text-align:center}
+.hero-glow{position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(201,168,76,0.07) 0%,transparent 70%);pointer-events:none}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.035) 1px,transparent 1px);background-size:55px 55px;pointer-events:none}
+.particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.p{position:absolute;border-radius:50%;animation:rise var(--dur) ease-in-out infinite}
+@keyframes rise{0%,100%{transform:translateY(0) scale(1);opacity:0.15}50%{transform:translateY(-50px) scale(1.3);opacity:0.7}}
+.hero-content{position:relative;z-index:2;max-width:860px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:100px;font-size:13px;color:var(--g2);margin-bottom:26px;animation:fadeDown 0.8s ease both}
+.hero-h1{font-family:'Amiri',serif;font-size:clamp(38px,6.5vw,80px);font-weight:700;line-height:1.1;margin-bottom:20px;animation:fadeUp 0.9s ease 0.1s both}
+.hero-h1 em{font-style:normal;background:linear-gradient(135deg,var(--g),var(--g2),#fff8e0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-p{font-size:clamp(15px,2vw,19px);color:var(--txt2);max-width:620px;margin:0 auto 38px;line-height:1.9;animation:fadeUp 0.9s ease 0.2s both}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeUp 0.9s ease 0.3s both}
+.btn-hero-primary{padding:15px 36px;background:linear-gradient(135deg,var(--g),var(--g2));color:#000;border:none;border-radius:12px;font-family:'Cairo',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all 0.3s;box-shadow:0 8px 32px rgba(201,168,76,0.3)}
+.btn-hero-primary:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(201,168,76,0.45)}
+.btn-hero-secondary{padding:15px 36px;background:transparent;color:var(--txt);border:1.5px solid rgba(201,168,76,0.4);border-radius:12px;font-family:'Cairo',sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.3s}
+.btn-hero-secondary:hover{border-color:var(--g);color:var(--g);background:rgba(201,168,76,0.06)}
+.hero-stats{display:flex;gap:44px;justify-content:center;flex-wrap:wrap;margin-top:68px;animation:fadeUp 0.9s ease 0.4s both}
+.stat{text-align:center}
+.stat-n{font-size:36px;font-weight:900;color:var(--g2);display:block;line-height:1}
+.stat-l{font-size:12px;color:var(--txt3);margin-top:6px;letter-spacing:0.5px}
+
+/* ─── SECTIONS ─── */
+.sec{padding:90px 36px}
+.sec-head{text-align:center;margin-bottom:60px}
+.sec-badge{display:inline-block;padding:6px 18px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.22);border-radius:100px;font-size:12px;color:var(--g);margin-bottom:16px;letter-spacing:1.5px}
+.sec-title{font-size:clamp(28px,4vw,48px);font-weight:700;margin-bottom:14px}
+.sec-title span{color:var(--g2)}
+.sec-sub{color:var(--txt2);font-size:16px;max-width:560px;margin:0 auto;line-height:1.9}
+
+/* ─── DOCS GRID ─── */
+.docs-sec{background:var(--bg2)}
+.cat-tabs{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin-bottom:44px}
+.cat-btn{padding:8px 22px;border-radius:100px;border:1px solid rgba(201,168,76,0.18);background:transparent;color:var(--txt2);font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.22s}
+.cat-btn.on,.cat-btn:hover{background:var(--g);color:#000;border-color:var(--g)}
+.docs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:14px;max-width:1150px;margin:0 auto}
+.doc-card{background:var(--card);border:1px solid rgba(201,168,76,0.09);border-radius:14px;padding:22px 16px;text-align:center;cursor:pointer;transition:all 0.28s;position:relative;overflow:hidden}
+.doc-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,0.06),transparent);opacity:0;transition:opacity 0.3s}
+.doc-card:hover{border-color:rgba(201,168,76,0.5);transform:translateY(-5px);box-shadow:0 16px 40px rgba(201,168,76,0.14)}
+.doc-card:hover::before{opacity:1}
+.doc-icon{font-size:30px;margin-bottom:11px;display:block;position:relative;z-index:1}
+.doc-name{font-size:12.5px;font-weight:700;color:var(--txt);line-height:1.45;position:relative;z-index:1}
+.doc-cat-lbl{font-size:11px;color:var(--txt3);margin-top:5px;position:relative;z-index:1}
+
+/* ─── HOW ─── */
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;max-width:1050px;margin:0 auto}
+.how-card{background:var(--card);border:1px solid rgba(201,168,76,0.09);border-radius:20px;padding:32px 26px;position:relative;overflow:hidden;transition:all 0.28s}
+.how-card:hover{border-color:rgba(201,168,76,0.3);transform:translateY(-4px)}
+.how-num{font-size:70px;font-weight:900;color:rgba(201,168,76,0.06);position:absolute;top:-12px;right:16px;line-height:1;pointer-events:none}
+.how-ico{width:54px;height:54px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px;position:relative;z-index:1}
+.how-title{font-size:15px;font-weight:700;margin-bottom:8px;position:relative;z-index:1}
+.how-desc{font-size:13px;color:var(--txt2);line-height:1.75;position:relative;z-index:1}
+
+/* ─── PRINT ─── */
+.print-sec{background:linear-gradient(135deg,rgba(201,168,76,0.05),rgba(201,168,76,0.01))}
+.print-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;max-width:950px;margin:0 auto}
+.print-card{background:var(--card);border:1px solid rgba(201,168,76,0.1);border-radius:14px;padding:26px 20px;text-align:center}
+.print-icon{font-size:34px;margin-bottom:12px}
+.print-title{font-size:14px;font-weight:700;margin-bottom:6px}
+.print-desc{font-size:12px;color:var(--txt2);line-height:1.7}
+
+/* ─── PRICING ─── */
+.pricing-sec{background:var(--bg2)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px;max-width:940px;margin:0 auto}
+.price-card{background:var(--card);border:1px solid rgba(201,168,76,0.1);border-radius:22px;padding:34px 28px;text-align:center;position:relative;transition:all 0.3s}
+.price-card.featured{border-color:var(--g);background:var(--card2)}
+.feat-badge{position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--g),var(--g2));color:#000;font-size:12px;font-weight:700;padding:5px 18px;border-radius:100px;white-space:nowrap}
+.price-name{font-size:15px;font-weight:700;color:var(--txt2);margin-bottom:7px}
+.price-val{font-size:44px;font-weight:900;color:var(--g2)}
+.price-cur{font-size:16px;font-weight:400;color:var(--txt3)}
+.price-dur{font-size:13px;color:var(--txt3);margin-bottom:26px}
+.price-feats{list-style:none;text-align:right;margin-bottom:28px}
+.price-feats li{padding:8px 0;font-size:13px;color:var(--txt2);border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;gap:8px}
+.price-feats li::before{content:'✓';color:var(--g);font-weight:900;flex-shrink:0}
+.btn-buy{width:100%;padding:13px;border-radius:11px;font-family:'Cairo',sans-serif;font-size:15px;font-weight:700;cursor:pointer;border:none;transition:all 0.22s}
+.btn-buy-primary{background:linear-gradient(135deg,var(--g),var(--g2));color:#000}
+.btn-buy-outline{background:transparent;color:var(--txt);border:1.5px solid rgba(201,168,76,0.3)}
+.btn-buy:hover{transform:translateY(-2px)}
+
+/* ─── FOOTER ─── */
+footer{background:var(--bg2);border-top:1px solid rgba(201,168,76,0.09);padding:44px 36px;text-align:center}
+.foot-logo{font-size:20px;font-weight:900;color:var(--g2);margin-bottom:10px}
+.foot-txt{font-size:13px;color:var(--txt3);line-height:1.9}
+.foot-credit{font-size:12px;color:var(--txt3);margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.05)}
+
+/* ─── MODAL ─── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity 0.3s}
+.overlay.on{opacity:1;pointer-events:all}
+.modal{background:var(--bg2);border:1px solid rgba(201,168,76,0.2);border-radius:26px;padding:38px;width:100%;max-width:450px;position:relative;transform:scale(0.88) translateY(24px);transition:all 0.3s;max-height:90vh;overflow-y:auto}
+.overlay.on .modal{transform:scale(1) translateY(0)}
+.m-close{position:absolute;top:16px;left:16px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.06);border:none;cursor:pointer;color:var(--txt);font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.m-close:hover{background:rgba(201,168,76,0.15);color:var(--g)}
+.m-title{font-size:22px;font-weight:700;margin-bottom:6px;text-align:center}
+.m-sub{font-size:13px;color:var(--txt2);text-align:center;margin-bottom:28px}
+.fgrp{margin-bottom:17px}
+.flbl{display:block;font-size:12.5px;font-weight:700;color:var(--txt2);margin-bottom:6px}
+.finp{width:100%;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.09);border-radius:10px;padding:11px 14px;color:var(--txt);font-family:'Cairo',sans-serif;font-size:13.5px;outline:none;transition:all 0.2s;-webkit-appearance:none}
+.finp:focus{border-color:var(--g);background:rgba(201,168,76,0.03)}
+[data-theme=light] .finp{background:rgba(0,0,0,0.04);border-color:rgba(0,0,0,0.12);color:var(--txt)}
+
+.btn-submit{width:100%;padding:13px;background:linear-gradient(135deg,var(--g),var(--g2));color:#000;border:none;border-radius:10px;font-family:'Cairo',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.3s;margin-top:10px}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(201,168,76,0.35)}
+.btn-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.m-switch{text-align:center;margin-top:14px;font-size:13px;color:var(--txt2)}
+.m-switch a{color:var(--g);cursor:pointer;font-weight:700}
+.otp-row{display:flex;gap:10px;justify-content:center;direction:ltr}
+.otp-box{width:50px;height:58px;background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:12px;text-align:center;font-size:24px;font-weight:700;color:var(--txt);font-family:'Cairo',sans-serif;outline:none;transition:border-color 0.2s}
+.otp-box:focus{border-color:var(--g)}
+.trial-box{background:rgba(201,168,76,0.09);border:1px solid rgba(201,168,76,0.25);border-radius:10px;padding:12px;text-align:center;margin-bottom:20px;font-size:13px;color:var(--g2)}
+.alert-box{padding:12px 15px;border-radius:10px;font-size:13px;margin-bottom:14px;display:none}
+.alert-box.on{display:block}
+.alert-ok{background:rgba(46,204,113,0.1);border:1px solid rgba(46,204,113,0.3);color:#2ECC71}
+.alert-err{background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);color:#E74C3C}
+.contact-big{font-size:22px;font-weight:900;color:var(--g2);letter-spacing:2px;direction:ltr;margin:10px 0}
+.activate-zone{margin-top:22px;padding-top:22px;border-top:1px solid rgba(255,255,255,0.07)}
+.pass-wrap{position:relative}
+.pass-wrap .finp{padding-left:44px}
+.eye-btn{position:absolute;left:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--txt3);font-size:18px;line-height:1;padding:0;transition:color 0.2s}
+.eye-btn:hover{color:var(--g)}
+.forgot-link{display:block;text-align:left;font-size:12px;color:var(--txt3);cursor:pointer;margin-top:6px;transition:color 0.2s}
+.forgot-link:hover{color:var(--g)}
+.otp-timer{text-align:center;font-size:13px;color:var(--txt3);margin-top:10px}
+.otp-timer span{color:var(--g);font-weight:700}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.aos{opacity:0;transform:translateY(28px);transition:all 0.7s ease}
+.aos.vis{opacity:1;transform:translateY(0)}
+
+/* ─── SEARCH ─── */
+.search-wrap{max-width:520px;margin:0 auto 38px;position:relative}
+.search-inp{width:100%;background:var(--card);border:1.5px solid rgba(201,168,76,0.12);border-radius:12px;padding:13px 50px 13px 18px;color:var(--txt);font-family:'Cairo',sans-serif;font-size:15px;outline:none;transition:border-color 0.2s}
+.search-inp:focus{border-color:rgba(201,168,76,0.4)}
+.search-ico{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:18px;pointer-events:none}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.25);border-radius:3px}
+@media(max-width:768px){nav{padding:12px 18px}.sec{padding:65px 18px}}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="nav">
+  <div class="logo" onclick="scrollTo(0,0)">
+    <div class="logo-box">📄</div>
+    <span class="logo-txt">وثيقتي</span>
+  </div>
+  <div class="nav-actions">
+    <button class="icon-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    <button class="btn-sm btn-ghost" onclick="open_modal('login')">تسجيل الدخول</button>
+    <button class="btn-sm btn-gold"  onclick="open_modal('register')">إنشاء حساب مجاناً</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="grid-bg"></div>
+  <div class="particles" id="pts"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🇩🇿 منصة الوثائق الرسمية الجزائرية رقم 1</div>
+    <h1 class="hero-h1">أي وثيقة رسمية<br/><em>في ثوانٍ معدودة</em></h1>
+    <p class="hero-p">أكثر من 200 وثيقة جزائرية رسمية مطابقة 100% للقانون — من طلب التحاق بالجيش والدرك إلى عقود الإيجار والفواتير</p>
+    <div class="hero-btns">
+      <button class="btn-hero-primary" onclick="open_modal('register')">ابدأ مجاناً — 15 يوم 🚀</button>
+      <button class="btn-hero-secondary" onclick="document.getElementById('docs').scrollIntoView({behavior:'smooth'})">تصفح الوثائق ↓</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-n" id="cn1">0</span><div class="stat-l">وثيقة رسمية</div></div>
+      <div class="stat"><span class="stat-n" id="cn2">0</span><div class="stat-l">فئة مختلفة</div></div>
+      <div class="stat"><span class="stat-n" id="cn3">0</span><div class="stat-l">يوم مجاني</div></div>
+      <div class="stat"><span class="stat-n">∞</span><div class="stat-l">طباعة غير محدودة</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCS -->
+<section class="sec docs-sec" id="docs">
+  <div class="sec-head aos">
+    <div class="sec-badge">📁 مكتبة الوثائق</div>
+    <h2 class="sec-title">200+ وثيقة <span>جزائرية رسمية</span></h2>
+    <p class="sec-sub">من طلب الالتحاق بالجيش والشرطة والدرك إلى عقود الإيجار والفواتير والعقود القانونية</p>
+  </div>
+  <div class="search-wrap">
+    <span class="search-ico">🔍</span>
+    <input class="search-inp" id="searchInp" placeholder="ابحث عن وثيقة..." oninput="filterSearch(this.value)"/>
+  </div>
+  <div class="cat-tabs" id="catTabs"></div>
+  <div class="docs-grid" id="docsGrid"></div>
+</section>
+
+<!-- HOW -->
+<section class="sec" id="how">
+  <div class="sec-head aos">
+    <div class="sec-badge">⚡ كيف يعمل</div>
+    <h2 class="sec-title">بسيط <span>للغاية</span></h2>
+    <p class="sec-sub">4 خطوات فقط من اختيار الوثيقة حتى الطباعة</p>
+  </div>
+  <div class="how-grid">
+    <div class="how-card aos"><div class="how-num">1</div><div class="how-ico">🔍</div><div class="how-title">اختر الوثيقة</div><div class="how-desc">تصفح 200+ وثيقة مقسّمة في فئات واضحة واختر ما تحتاجه</div></div>
+    <div class="how-card aos" style="transition-delay:.1s"><div class="how-num">2</div><div class="how-ico">✍️</div><div class="how-title">أدخل بياناتك</div><div class="how-desc">نموذج ذكي يطلب منك فقط بياناتك — الصياغة القانونية ثابتة ومطابقة</div></div>
+    <div class="how-card aos" style="transition-delay:.2s"><div class="how-num">3</div><div class="how-ico">👁️</div><div class="how-title">معاينة فورية</div><div class="how-desc">شاهد الوثيقة كاملة قبل الطباعة — بشكل رسمي جاهز للتوقيع</div></div>
+    <div class="how-card aos" style="transition-delay:.3s"><div class="how-num">4</div><div class="how-ico">🖨️</div><div class="how-title">اطبع مباشرة</div><div class="how-desc">طباعة A4 احترافية على أي طابعة — USB أو بلوتوث — بجودة رسمية</div></div>
+  </div>
+</section>
+
+<!-- PRINT -->
+<section class="sec print-sec">
+  <div class="sec-head aos">
+    <div class="sec-badge">🖨️ الطباعة الذكية</div>
+    <h2 class="sec-title">طباعة <span>احترافية</span></h2>
+    <p class="sec-sub">دعم كامل لكل أنواع الطابعات بتنسيق A4 رسمي مثالي</p>
+  </div>
+  <div class="print-grid">
+    <div class="print-card aos"><div class="print-icon">📶</div><div class="print-title">طابعة بلوتوث</div><div class="print-desc">اتصال لاسلكي مباشر بدون كابل</div></div>
+    <div class="print-card aos" style="transition-delay:.1s"><div class="print-icon">🔌</div><div class="print-title">طابعة USB</div><div class="print-desc">دعم كل طابعات USB المتصلة</div></div>
+    <div class="print-card aos" style="transition-delay:.2s"><div class="print-icon">📋</div><div class="print-title">تنسيق A4 مثالي</div><div class="print-desc">هوامش قانونية دقيقة — تطبع كما هي</div></div>
+    <div class="print-card aos" style="transition-delay:.3s"><div class="print-icon">💾</div><div class="print-title">حفظ PDF/HTML</div><div class="print-desc">احفظ الوثيقة لاستخدامها لاحقاً</div></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec pricing-sec" id="pricing">
+  <div class="sec-head aos">
+    <div class="sec-badge">💎 الاشتراكات</div>
+    <h2 class="sec-title">أسعار <span>مناسبة للجميع</span></h2>
+    <p class="sec-sub">ابدأ مجاناً 15 يوماً ثم اختر الباقة المناسبة</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card aos">
+      <div class="price-name">شهري</div><div class="price-val">500<span class="price-cur"> دج</span></div><div class="price-dur">شهر كامل</div>
+      <ul class="price-feats"><li>200+ وثيقة رسمية</li><li>طباعة غير محدودة</li><li>حفظ الوثائق</li><li>دعم فني</li></ul>
+      <button class="btn-buy btn-buy-outline" onclick="open_modal('activate')">اشترك الآن</button>
+    </div>
+    <div class="price-card featured aos" style="transition-delay:.1s">
+      <div class="feat-badge">⭐ الأكثر طلباً</div>
+      <div class="price-name">3 أشهر</div><div class="price-val">1200<span class="price-cur"> دج</span></div><div class="price-dur">ثلاثة أشهر</div>
+      <ul class="price-feats"><li>200+ وثيقة رسمية</li><li>طباعة غير محدودة</li><li>حفظ الوثائق</li><li>دعم أولوية</li><li>توفير 20%</li></ul>
+      <button class="btn-buy btn-buy-primary" onclick="open_modal('activate')">اشترك الآن</button>
+    </div>
+    <div class="price-card aos" style="transition-delay:.2s">
+      <div class="price-name">سنوي</div><div class="price-val">3500<span class="price-cur"> دج</span></div><div class="price-dur">سنة كاملة</div>
+      <ul class="price-feats"><li>200+ وثيقة رسمية</li><li>طباعة غير محدودة</li><li>حفظ الوثائق</li><li>دعم VIP</li><li>توفير 42%</li></ul>
+      <button class="btn-buy btn-buy-outline" onclick="open_modal('activate')">اشترك الآن</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">📄 وثيقتي</div>
+  <div class="foot-txt">منصة الوثائق الرسمية الجزائرية الأولى — 200+ وثيقة مطابقة للقانون الجزائري<br/>للاشتراك والدعم: <b style="color:var(--g2);direction:ltr;display:inline-block">📞 0790584472</b></div>
+  <div class="foot-credit">تصميم: Abd Rahim Mess — عين الدفلى 🇩🇿</div>
+</footer>
+
+<!-- MODAL REGISTER -->
+<div class="overlay" id="ovRegister">
+<div class="modal">
+  <button class="m-close" onclick="close_modal('register')">✕</button>
+  <div class="m-title">إنشاء حساب</div>
+  <div class="m-sub">فترة تجريبية مجانية 15 يوم</div>
+  <div class="trial-box">🎁 15 يوم مجاناً بعد التسجيل</div>
+  <div class="alert-box" id="regAlert"></div>
+  <div id="regStep1">
+    <div class="fgrp"><label class="flbl">الاسم الكامل</label><input class="finp" id="regName" placeholder="اسمك الكامل..." autocomplete="name"/></div>
+    <div class="fgrp"><label class="flbl">البريد الإلكتروني (Gmail)</label><input type="email" class="finp" id="regEmail" placeholder="example@gmail.com" autocomplete="email"/></div>
+    <div class="fgrp"><label class="flbl">كلمة السر</label><div class="pass-wrap"><input type="password" class="finp" id="regPass" placeholder="6 أحرف على الأقل..." autocomplete="new-password"/><button class="eye-btn" type="button" onclick="toggleEye('regPass',this)">👁</button></div></div>
+    <div class="fgrp"><label class="flbl">تأكيد كلمة السر</label><div class="pass-wrap"><input type="password" class="finp" id="regPass2" placeholder="أعد كتابتها..." autocomplete="new-password"/><button class="eye-btn" type="button" onclick="toggleEye('regPass2',this)">👁</button></div></div>
+    <button class="btn-submit" id="regBtn" onclick="doRegister()">إرسال رمز التحقق 📧</button>
+  </div>
+  <div id="regStep2" style="display:none">
+    <p style="text-align:center;color:var(--txt2);font-size:14px;margin-bottom:8px">📧 أدخل الرمز المرسل إلى بريدك الإلكتروني</p>
+    <p style="text-align:center;color:var(--txt3);font-size:12px;margin-bottom:22px">تحقق من مجلد <b>Spam</b> إذا لم يصل</p>
+    <div class="otp-row">
+      <input class="otp-box" id="o1" maxlength="1" oninput="nxt(this,'o2')" inputmode="numeric"/>
+      <input class="otp-box" id="o2" maxlength="1" oninput="nxt(this,'o3')" inputmode="numeric"/>
+      <input class="otp-box" id="o3" maxlength="1" oninput="nxt(this,'o4')" inputmode="numeric"/>
+      <input class="otp-box" id="o4" maxlength="1" oninput="nxt(this,'o5')" inputmode="numeric"/>
+      <input class="otp-box" id="o5" maxlength="1" oninput="nxt(this,'o6')" inputmode="numeric"/>
+      <input class="otp-box" id="o6" maxlength="1" oninput="nxt(this,null)" inputmode="numeric"/>
+    </div>
+    <div class="otp-timer">الرمز صالح: <span id="regTimerTxt">10:00</span></div>
+    <button class="btn-submit" style="margin-top:22px" onclick="doVerify()">تأكيد الرمز ✅</button>
+    <div class="m-switch"><a onclick="resendOTP('reg')">إعادة إرسال الرمز</a></div>
+  </div>
+  <div class="m-switch">لديك حساب؟ <a onclick="sw('register','login')">دخول</a></div>
+</div></div>
+
+<!-- MODAL LOGIN -->
+<div class="overlay" id="ovLogin">
+<div class="modal">
+  <button class="m-close" onclick="close_modal('login')">✕</button>
+  <div class="m-title">تسجيل الدخول</div>
+  <div class="m-sub">أدخل بريدك الإلكتروني وكلمة سرك</div>
+  <div class="alert-box" id="loginAlert"></div>
+  <div class="fgrp"><label class="flbl">البريد الإلكتروني</label><input type="email" class="finp" id="loginEmail" placeholder="example@gmail.com" autocomplete="email"/></div>
+  <div class="fgrp"><label class="flbl">كلمة السر</label><div class="pass-wrap"><input type="password" class="finp" id="loginPass" placeholder="كلمة السر..." autocomplete="current-password"/><button class="eye-btn" type="button" onclick="toggleEye('loginPass',this)">👁</button></div><a class="forgot-link" onclick="sw('login','forgot')">نسيت كلمة السر؟</a></div>
+  <button class="btn-submit" id="loginBtn" onclick="doLogin()">دخول</button>
+  <div class="m-switch">ليس لديك حساب؟ <a onclick="sw('login','register')">إنشاء حساب مجاناً</a></div>
+</div></div>
+
+<!-- MODAL FORGOT PASSWORD -->
+<div class="overlay" id="ovForgot">
+<div class="modal">
+  <button class="m-close" onclick="close_modal('forgot')">✕</button>
+  <div class="m-title">نسيت كلمة السر؟ 🔑</div>
+  <div class="alert-box" id="forgotAlert"></div>
+  <div id="forgotStep1">
+    <div class="m-sub">أدخل بريدك الإلكتروني وسنرسل لك رمز التحقق</div>
+    <div class="fgrp" style="margin-top:18px"><label class="flbl">البريد الإلكتروني</label><input type="email" class="finp" id="forgotEmail" placeholder="example@gmail.com" autocomplete="email"/></div>
+    <button class="btn-submit" id="forgotBtn" onclick="doForgot()">إرسال رمز التحقق 📧</button>
+  </div>
+  <div id="forgotStep2" style="display:none">
+    <p style="text-align:center;color:var(--txt2);font-size:14px;margin-bottom:8px">📧 أدخل الرمز المرسل إلى بريدك</p>
+    <p style="text-align:center;color:var(--txt3);font-size:12px;margin-bottom:22px">تحقق من مجلد <b>Spam</b> إذا لم يصل</p>
+    <div class="otp-row">
+      <input class="otp-box" id="f1" maxlength="1" oninput="nxt(this,'f2')" inputmode="numeric"/>
+      <input class="otp-box" id="f2" maxlength="1" oninput="nxt(this,'f3')" inputmode="numeric"/>
+      <input class="otp-box" id="f3" maxlength="1" oninput="nxt(this,'f4')" inputmode="numeric"/>
+      <input class="otp-box" id="f4" maxlength="1" oninput="nxt(this,'f5')" inputmode="numeric"/>
+      <input class="otp-box" id="f5" maxlength="1" oninput="nxt(this,'f6')" inputmode="numeric"/>
+      <input class="otp-box" id="f6" maxlength="1" oninput="nxt(this,null)" inputmode="numeric"/>
+    </div>
+    <div class="otp-timer">الرمز صالح: <span id="forgotTimerTxt">10:00</span></div>
+    <button class="btn-submit" style="margin-top:22px" onclick="doVerifyReset()">تأكيد الرمز ✅</button>
+    <div class="m-switch"><a onclick="resendOTP('forgot')">إعادة إرسال الرمز</a></div>
+  </div>
+  <div id="forgotStep3" style="display:none">
+    <div class="m-sub">✅ الرمز صحيح — أدخل كلمة السر الجديدة</div>
+    <div class="fgrp" style="margin-top:18px"><label class="flbl">كلمة السر الجديدة</label><div class="pass-wrap"><input type="password" class="finp" id="newPass" placeholder="6 أحرف على الأقل..." autocomplete="new-password"/><button class="eye-btn" type="button" onclick="toggleEye('newPass',this)">👁</button></div></div>
+    <div class="fgrp"><label class="flbl">تأكيد كلمة السر</label><div class="pass-wrap"><input type="password" class="finp" id="newPass2" placeholder="أعد كتابتها..." autocomplete="new-password"/><button class="eye-btn" type="button" onclick="toggleEye('newPass2',this)">👁</button></div></div>
+    <button class="btn-submit" id="resetBtn" onclick="doResetPass()">حفظ كلمة السر الجديدة</button>
+  </div>
+  <div class="m-switch"><a onclick="sw('forgot','login')">← العودة للدخول</a></div>
+</div></div>
+
+<!-- MODAL EXPIRED -->
+<div class="overlay" id="ovExpired">
+<div class="modal" style="text-align:center">
+  <div style="font-size:50px;margin-bottom:14px">⏰</div>
+  <div class="m-title">انتهى الاشتراك</div>
+  <p style="color:var(--txt2);font-size:14px;margin-bottom:14px">لمتابعة استخدام الموقع فعّل اشتراكك</p>
+  <p style="font-size:13px;color:var(--txt2)">تواصل معنا للحصول على رمز التفعيل:</p>
+  <div class="contact-big">📞 0790584472</div>
+  <div class="activate-zone">
+    <div class="alert-box" id="expAlert"></div>
+    <div class="fgrp"><label class="flbl">رمز التفعيل</label><input class="finp" id="expCode" placeholder="WQ-XXXX-XXXX" style="text-align:center;letter-spacing:2px"/></div>
+    <button class="btn-submit" onclick="doActivate('expCode','expAlert')">تفعيل الاشتراك</button>
+  </div>
+  <button style="margin-top:12px;background:none;border:none;color:var(--txt3);cursor:pointer;font-family:'Cairo',sans-serif;font-size:13px" onclick="doLogout()">تسجيل الخروج</button>
+</div></div>
+
+<!-- MODAL ACTIVATE -->
+<div class="overlay" id="ovActivate">
+<div class="modal">
+  <button class="m-close" onclick="close_modal('activate')">✕</button>
+  <div class="m-title">تفعيل الاشتراك 🔑</div>
+  <div class="m-sub">أدخل رمز التفعيل الذي حصلت عليه</div>
+  <p style="text-align:center;font-size:13px;color:var(--txt2);margin-bottom:20px">للحصول على رمز تواصل معنا:<br/><b style="color:var(--g2);font-size:18px;direction:ltr;display:inline-block;margin-top:5px">📞 0790584472</b></p>
+  <div class="alert-box" id="actAlert"></div>
+  <div class="fgrp"><label class="flbl">رمز التفعيل</label><input class="finp" id="actCode" placeholder="WQ-XXXX-XXXX" style="text-align:center;letter-spacing:2px"/></div>
+  <button class="btn-submit" onclick="doActivate('actCode','actAlert')">تفعيل</button>
+</div></div>
+
+<script>
+// ── PARTICLES ───────────────────────────────────────────
+const pc=document.getElementById('pts');
+for(let i=0;i<28;i++){
+  const el=document.createElement('div');el.className='p';
+  const sz=2+Math.random()*3;
+  el.style.cssText=`width:${sz}px;height:${sz}px;background:${Math.random()>.5?'#C9A84C':'#E8C97A'};left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${3+Math.random()*6}s;animation-delay:${Math.random()*6}s`;
+  pc.appendChild(el);
+}
+
+// ── COUNTERS ────────────────────────────────────────────
+function cnt(el,t){let c=0;const s=Math.ceil(t/60);const ti=setInterval(()=>{c=Math.min(c+s,t);el.textContent=c+(t>20?'+':'');if(c>=t)clearInterval(ti)},25)}
+setTimeout(()=>{cnt(document.getElementById('cn1'),200);cnt(document.getElementById('cn2'),19);cnt(document.getElementById('cn3'),15)},600);
+
+// ── AOS ─────────────────────────────────────────────────
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')})},{threshold:0.1});
+document.querySelectorAll('.aos').forEach(el=>obs.observe(el));
+
+// ── THEME ───────────────────────────────────────────────
+let theme=localStorage.getItem('wq_theme')||'dark';
+applyTheme();
+function applyTheme(){
+  document.body.setAttribute('data-theme',theme==='light'?'light':'');
+  document.getElementById('themeBtn').textContent=theme==='dark'?'🌙':'☀️';
+}
+function toggleTheme(){theme=theme==='dark'?'light':'dark';applyTheme();localStorage.setItem('wq_theme',theme)}
+
+// ── MODALS ──────────────────────────────────────────────
+function open_modal(t){document.getElementById('ov'+cap(t)).classList.add('on');document.body.style.overflow='hidden'}
+function close_modal(t){document.getElementById('ov'+cap(t)).classList.remove('on');document.body.style.overflow=''}
+function sw(a,b){close_modal(a);setTimeout(()=>open_modal(b),180)}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+document.querySelectorAll('.overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o){o.classList.remove('on');document.body.style.overflow=''}})});
+
+// ── CATALOG DATA ─────────────────────────────────────────
+const CATALOG_RAW=[
+  {cat:'عسكرية وأمنية',icon:'🎖️',docs:[{id:'army_request',t:'طلب التحاق بالجيش الوطني',i:'⚔️'},{id:'police_request',t:'طلب التحاق بالشرطة',i:'👮'},{id:'gendarmerie_request',t:'طلب التحاق بالدرك الوطني',i:'🛡️'},{id:'civil_protection',t:'طلب التحاق بالحماية المدنية',i:'🚒'},{id:'customs_request',t:'طلب التحاق بالجمارك',i:'🏛️'},{id:'prison_request',t:'طلب التحاق بإدارة السجون',i:'🔒'},{id:'military_exemption',t:'طلب إعفاء من الخدمة الوطنية',i:'📋'},{id:'military_delay',t:'طلب تأجيل الخدمة الوطنية',i:'⏳'},{id:'police_complaint',t:'شكوى إلى الشرطة',i:'📢'},{id:'gendarmerie_complaint',t:'شكوى إلى الدرك',i:'📣'}]},
+  {cat:'شخصية ومهنية',icon:'👤',docs:[{id:'cv',t:'السيرة الذاتية CV',i:'📄'},{id:'job_request',t:'طلب عمل',i:'💼'},{id:'motivation_letter',t:'رسالة تحفيزية',i:'✉️'},{id:'resignation',t:'رسالة استقالة',i:'📤'},{id:'honor_declaration',t:'تصريح شرفي',i:'🏅'},{id:'leave_request',t:'طلب إجازة',i:'🌴'},{id:'promotion_request',t:'طلب ترقية',i:'📈'},{id:'mutation_request',t:'طلب نقل وظيفي',i:'🔄'},{id:'termination_letter',t:'إنهاء عقد عمل',i:'❌'},{id:'complaint_employer',t:'شكوى ضد صاحب العمل',i:'⚠️'}]},
+  {cat:'عقود العمل',icon:'📃',docs:[{id:'employment_contract',t:'عقد عمل CDD',i:'📃'},{id:'cdi_contract',t:'عقد عمل CDI',i:'📋'},{id:'internship_contract',t:'عقد تربص',i:'🎓'},{id:'part_time_contract',t:'عقد عمل بدوام جزئي',i:'⏰'},{id:'remote_contract',t:'عقد عمل عن بعد',i:'💻'},{id:'freelance_contract',t:'عقد عمل مستقل',i:'🤝'}]},
+  {cat:'السكن والإيجار',icon:'🏠',docs:[{id:'rental_contract',t:'عقد إيجار سكني',i:'🏠'},{id:'commercial_rental',t:'عقد إيجار تجاري',i:'🏢'},{id:'rent_receipt',t:'وصل استلام الإيجار',i:'🧾'},{id:'eviction_notice',t:'إشعار إخلاء المسكن',i:'🚪'},{id:'formal_notice_tenant',t:'إنذار رسمي للمستأجر',i:'⚠️'},{id:'property_handover',t:'محضر تسليم المسكن',i:'🔑'},{id:'sublease_contract',t:'عقد إيجار من الباطن',i:'🏘️'}]},
+  {cat:'قانونية',icon:'⚖️',docs:[{id:'written_commitment',t:'تعهد كتابي',i:'✍️'},{id:'money_receipt',t:'وصل استلام مبلغ',i:'💵'},{id:'formal_notice',t:'إنذار رسمي',i:'📢'},{id:'debt_acknowledgment',t:'إقرار بالدين',i:'📝'},{id:'power_of_attorney',t:'توكيل رسمي عام',i:'🔑'},{id:'special_poa',t:'توكيل رسمي خاص',i:'🔐'},{id:'admin_complaint',t:'شكوى إدارية',i:'📋'},{id:'appeal_request',t:'طعن إداري',i:'⚖️'},{id:'car_accident',t:'محضر حادث مروري',i:'💥'}]},
+  {cat:'تجارية',icon:'💼',docs:[{id:'invoice',t:'فاتورة احترافية',i:'🧮'},{id:'quote',t:'عرض سعر',i:'📊'},{id:'service_contract',t:'عقد خدمات',i:'🤝'},{id:'partnership_contract',t:'عقد شراكة',i:'👥'},{id:'sale_contract',t:'عقد بيع',i:'🛒'},{id:'car_sale_contract',t:'عقد بيع سيارة',i:'🚗'},{id:'loan_agreement',t:'عقد قرض بين أفراد',i:'💰'}]},
+  {cat:'إدارية',icon:'🏛️',docs:[{id:'mayor_request',t:'طلب لرئيس البلدية',i:'🏛️'},{id:'wali_request',t:'طلب للوالي',i:'📋'},{id:'scholarship_request',t:'طلب منحة دراسية',i:'🎓'},{id:'loan_request',t:'طلب قرض بنكي',i:'🏦'},{id:'housing_request',t:'طلب سكن اجتماعي',i:'🏘️'},{id:'passport_request',t:'طلب جواز سفر',i:'✈️'},{id:'identity_card',t:'طلب بطاقة تعريف',i:'🪪'},{id:'building_permit',t:'طلب رخصة بناء',i:'🏗️'}]},
+  {cat:'صحية',icon:'🏥',docs:[{id:'medical_certificate',t:'شهادة طبية',i:'🩺'},{id:'cnas_request',t:'طلب إلى CNAS',i:'🏥'},{id:'retirement_request',t:'طلب التقاعد',i:'👴'},{id:'social_aid_request',t:'طلب مساعدة اجتماعية',i:'🤲'},{id:'hospital_complaint',t:'شكوى إلى مستشفى',i:'🏨'}]},
+  {cat:'مراسلات',icon:'📮',docs:[{id:'official_letter',t:'رسالة رسمية',i:'📮'},{id:'recommendation_letter',t:'خطاب توصية',i:'⭐'},{id:'thank_you_letter',t:'رسالة شكر',i:'🙏'},{id:'minutes',t:'محضر اجتماع',i:'📋'},{id:'invitation_letter',t:'رسالة دعوة',i:'💌'},{id:'acknowledgment',t:'وصل استلام وثيقة',i:'📩'}]},
+];
+
+let allDocs=[],activeCat='الكل';
+CATALOG_RAW.forEach(c=>c.docs.forEach(d=>allDocs.push({...d,cat:c.cat,catIcon:c.icon})));
+
+function buildTabs(){
+  const tabs=document.getElementById('catTabs');
+  ['الكل',...CATALOG_RAW.map(c=>c.cat)].forEach(cat=>{
+    const b=document.createElement('button');b.className='cat-btn'+(cat==='الكل'?' on':'');
+    b.textContent=cat;b.onclick=()=>{
+      document.querySelectorAll('.cat-btn').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+      activeCat=cat;renderDocs(cat==='الكل'?allDocs:allDocs.filter(d=>d.cat===cat));
+    };tabs.appendChild(b);
+  });
+  renderDocs(allDocs);
+}
+
+function renderDocs(list){
+  const g=document.getElementById('docsGrid');g.innerHTML='';
+  if(!list.length){g.innerHTML='<div style="text-align:center;color:var(--txt3);padding:40px;width:100%">لا توجد نتائج</div>';return}
+  list.forEach(d=>{
+    const c=document.createElement('div');c.className='doc-card';
+    c.innerHTML=`<span class="doc-icon">${d.i}</span><div class="doc-name">${d.t}</div><div class="doc-cat-lbl">${d.cat}</div>`;
+    c.onclick=()=>handleDocClick(d.id);g.appendChild(c);
+  });
+}
+
+function filterSearch(q){
+  const f=allDocs.filter(d=>d.t.includes(q)||d.cat.includes(q));
+  renderDocs(f);
+  document.querySelectorAll('.cat-btn').forEach(b=>{b.classList.toggle('on',b.textContent==='الكل'&&!q)});
+}
+
+buildTabs();
+
+async function handleDocClick(id){
+  const s=await fetch('/api/auth/me').then(r=>r.json());
+  if(!s.loggedIn){open_modal('login');return}
+  if(s.expired){open_modal('expired');return}
+  window.location.href='/doc/'+id;
+}
+
+// ── OTP ─────────────────────────────────────────────────
+function nxt(el,id){if(el.value&&id)document.getElementById(id).focus()}
+
+// ── HELPERS ─────────────────────────────────────────────
+function toggleEye(id,btn){const el=document.getElementById(id);el.type=el.type==='password'?'text':'password';btn.textContent=el.type==='password'?'👁':'🙈'}
+
+function genFP(){
+  try{const c=document.createElement('canvas');const g=c.getContext('webgl');const i=g&&g.getExtension('WEBGL_debug_renderer_info');return btoa((i?g.getParameter(i.UNMASKED_RENDERER_WEBGL):'')+navigator.userAgent+screen.width+screen.height).slice(0,64)}
+  catch(e){return btoa(navigator.userAgent+Date.now()).slice(0,64)}
+}
+
+let regTimerInt=null, forgotTimerInt=null;
+function startTimer(elId,intRef,sec=600){
+  clearInterval(intRef);let s=sec;
+  return setInterval(()=>{s--;const m=String(Math.floor(s/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
+    const el=document.getElementById(elId);if(el)el.textContent=m+':'+ss;if(s<=0)clearInterval(intRef);},1000);
+}
+
+async function resendOTP(ctx){
+  if(ctx==='reg'){
+    const email=document.getElementById('regEmail').value.trim();
+    const name=document.getElementById('regName').value.trim();
+    const pass=document.getElementById('regPass').value;
+    const r=await post('/api/auth/register',{name,email,password:pass,confirmPassword:pass,fp:genFP()});
+    if(r.success){showAlert('regAlert','ok','تم إعادة إرسال الرمز');regTimerInt=startTimer('regTimerTxt',regTimerInt);if(r.otp_dev)showAlert('regAlert','ok','رمز (اختبار): '+r.otp_dev);}
+    else showAlert('regAlert','err',r.message);
+  } else {
+    const email=document.getElementById('forgotEmail').value.trim();
+    const r=await post('/api/auth/forgot-password',{email});
+    if(r.success){showAlert('forgotAlert','ok','تم إعادة إرسال الرمز');forgotTimerInt=startTimer('forgotTimerTxt',forgotTimerInt);if(r.otp_dev)showAlert('forgotAlert','ok','رمز (اختبار): '+r.otp_dev);}
+    else showAlert('forgotAlert','err',r.message);
+  }
+}
+
+// ── REGISTER ────────────────────────────────────────────
+async function doRegister(){
+  const name=document.getElementById('regName').value.trim();
+  const email=document.getElementById('regEmail').value.trim();
+  const pass=document.getElementById('regPass').value;
+  const pass2=document.getElementById('regPass2').value;
+  if(!name)return showAlert('regAlert','err','الاسم مطلوب');
+  if(!email||!email.includes('@'))return showAlert('regAlert','err','أدخل بريداً إلكترونياً صحيحاً');
+  if(pass!==pass2)return showAlert('regAlert','err','كلمة السر غير متطابقة');
+  if(pass.length<6)return showAlert('regAlert','err','كلمة السر 6 أحرف على الأقل');
+  const btn=document.getElementById('regBtn');btn.disabled=true;btn.textContent='جاري الإرسال...';
+  const r=await post('/api/auth/register',{name,email,password:pass,confirmPassword:pass2,fp:genFP()});
+  btn.disabled=false;btn.textContent='إرسال رمز التحقق 📧';
+  if(r.success){
+    document.getElementById('regStep1').style.display='none';
+    document.getElementById('regStep2').style.display='block';
+    regTimerInt=startTimer('regTimerTxt',regTimerInt);
+    if(r.otp_dev)showAlert('regAlert','ok','رمز التحقق (اختبار): '+r.otp_dev);
+  } else showAlert('regAlert','err',r.message);
+}
+
+async function doVerify(){
+  const otp=['o1','o2','o3','o4','o5','o6'].map(i=>document.getElementById(i).value).join('');
+  if(otp.length<6)return showAlert('regAlert','err','أدخل الرمز كاملاً');
+  const r=await post('/api/auth/verify-otp',{otp});
+  if(r.success){clearInterval(regTimerInt);close_modal('register');window.location.href='/dashboard';}
+  else showAlert('regAlert','err',r.message);
+}
+
+// ── LOGIN ────────────────────────────────────────────────
+async function doLogin(){
+  const email=document.getElementById('loginEmail').value.trim();
+  const pass=document.getElementById('loginPass').value;
+  if(!email||!pass)return showAlert('loginAlert','err','أدخل البريد الإلكتروني وكلمة السر');
+  const btn=document.getElementById('loginBtn');btn.disabled=true;btn.textContent='جاري الدخول...';
+  const r=await post('/api/auth/login',{email,password:pass});
+  btn.disabled=false;btn.textContent='دخول';
+  if(r.success){
+    close_modal('login');
+    if(r.expired)open_modal('expired');
+    else window.location.href='/dashboard';
+  } else showAlert('loginAlert','err',r.message);
+}
+
+// ── FORGOT PASSWORD ──────────────────────────────────────
+async function doForgot(){
+  const email=document.getElementById('forgotEmail').value.trim();
+  if(!email||!email.includes('@'))return showAlert('forgotAlert','err','أدخل بريداً إلكترونياً صحيحاً');
+  const btn=document.getElementById('forgotBtn');btn.disabled=true;btn.textContent='جاري الإرسال...';
+  const r=await post('/api/auth/forgot-password',{email});
+  btn.disabled=false;btn.textContent='إرسال رمز التحقق 📧';
+  if(r.success){
+    document.getElementById('forgotStep1').style.display='none';
+    document.getElementById('forgotStep2').style.display='block';
+    forgotTimerInt=startTimer('forgotTimerTxt',forgotTimerInt);
+    if(r.otp_dev)showAlert('forgotAlert','ok','رمز (اختبار): '+r.otp_dev);
+    else showAlert('forgotAlert','ok',r.message);
+  } else showAlert('forgotAlert','err',r.message);
+}
+
+async function doVerifyReset(){
+  const otp=['f1','f2','f3','f4','f5','f6'].map(i=>document.getElementById(i).value).join('');
+  if(otp.length<6)return showAlert('forgotAlert','err','أدخل الرمز كاملاً');
+  const r=await post('/api/auth/verify-reset',{otp});
+  if(r.success){
+    clearInterval(forgotTimerInt);
+    document.getElementById('forgotStep2').style.display='none';
+    document.getElementById('forgotStep3').style.display='block';
+    showAlert('forgotAlert','ok',r.message);
+  } else showAlert('forgotAlert','err',r.message);
+}
+
+async function doResetPass(){
+  const pass=document.getElementById('newPass').value;
+  const pass2=document.getElementById('newPass2').value;
+  if(pass!==pass2)return showAlert('forgotAlert','err','كلمة السر غير متطابقة');
+  if(pass.length<6)return showAlert('forgotAlert','err','كلمة السر 6 أحرف على الأقل');
+  const btn=document.getElementById('resetBtn');btn.disabled=true;btn.textContent='جاري الحفظ...';
+  const r=await post('/api/auth/reset-password',{password:pass,confirmPassword:pass2});
+  btn.disabled=false;btn.textContent='حفظ كلمة السر الجديدة';
+  if(r.success){
+    showAlert('forgotAlert','ok',r.message);
+    setTimeout(()=>{close_modal('forgot');open_modal('login');},2200);
+  } else showAlert('forgotAlert','err',r.message);
+}
+
+async function doActivate(inp,alrt){
+  const code=document.getElementById(inp).value.trim();
+  if(!code)return;
+  const r=await post('/api/auth/activate',{code});
+  if(r.success){showAlert(alrt,'ok',r.message);setTimeout(()=>window.location.href='/dashboard',2000)}
+  else showAlert(alrt,'err',r.message);
+}
+
+async function doLogout(){await post('/api/auth/logout',{});window.location.reload()}
+
+function post(url,data){return fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).then(r=>r.json())}
+function showAlert(id,type,msg){const el=document.getElementById(id);el.className='alert-box on alert-'+(type==='ok'?'ok':'err');el.textContent=msg;setTimeout(()=>el.classList.remove('on'),6000)}
+
+// ── CHECK SESSION ────────────────────────────────────────
+fetch('/api/auth/me').then(r=>r.json()).then(s=>{
+  if(s.loggedIn){
+    document.querySelectorAll('.btn-ghost,.btn-gold').forEach(b=>b.style.display='none');
+    const b=document.createElement('button');b.className='btn-sm btn-gold';b.textContent='لوحتي 📊';
+    b.onclick=()=>{if(s.expired)open_modal('expired');else window.location.href='/dashboard'};
+    document.querySelector('.nav-actions').appendChild(b);
+  }
+});
+</script>
+</body>
+</html>
